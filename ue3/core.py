@@ -36,6 +36,7 @@ def caculate_manhattan_value_char(lm_cfd, words):
     return sorted(manhattan_dict.iteritems(), key=lambda item: item[1])
 
 
+
 # Uebung 3.1.c
 def guess_language(language_model_cfd, text, evaluate_func=caculate_manhattan_value_char):
     test_words = word_tokenize(text)
