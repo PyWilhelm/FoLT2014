@@ -3,6 +3,7 @@ from nltk.probability import FreqDist
 from nltk import word_tokenize
 import string
 
+
 languages = ['English', 'German_Deutsch', 'French_Francais']
 language_base = dict((language, udhr.words(language + '-Latin1')) for language in languages)
 
