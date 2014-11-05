@@ -147,3 +147,7 @@ class MainTest(unittest.TestCase):
         print 'guess for french text is', ld.guess_language(self.text2)
         print 'guess for german text is', ld.guess_language(self.text3)
         print '---FINISH: Testing: based on the frequency of tokens bigrams---'
+
+
+if __name__ == '__main__':
+    unittest.main()
