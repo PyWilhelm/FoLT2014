@@ -1,4 +1,6 @@
-from nltk.corpus import udhr
+#-*- coding: utf-8 -*-
+
+rom nltk.corpus import udhr
 from nltk.probability import FreqDist, ConditionalFreqDist
 from nltk import word_tokenize
 import re
@@ -33,7 +35,7 @@ class LanguageDeterminator(object):
             value = 0
             for subkey in learning_info_dict[lang].keys():
                 value += learning_info_dict[lang][subkey] * testing_info_dict.get(subkey, 0)
-                evaluation_dict[lang] = value
+            evaluation_dict[lang] = value
         return sorted(evaluation_dict.iteritems(), key=lambda item: item[1], reverse=True)
     
     def guess_language(self, text):
@@ -58,9 +60,9 @@ class LDChar(LanguageDeterminator):
                               for w, t in [(w, _) for (w, _) in self._language_model_cfd[lang].most_common() 
                                            if w not in ignores]} for lang in self._language_model_cfd.keys()}
         testing_info_dict = {w: float(t) 
-                            for w, t in [(w, _) 
-                                         for (w, _) in FreqDist([c for word in words for c in word.lower()]).most_common() 
-                                         if w not in ignores]}
+                             for w, t in [(w, _) 
+                                          for (w, _) in FreqDist([c for word in words for c in word.lower()]).most_common() 
+                                          if w not in ignores]}
         return learning_info_dict, testing_info_dict
 
     
@@ -74,9 +76,9 @@ class LDToken(LanguageDeterminator):
                               for w, t in [(w, _) for (w, _) in self._language_model_cfd[lang].most_common() 
                                            if w not in ignores]} for lang in self._language_model_cfd.keys()}
         testing_info_dict = {w: float(t) 
-                            for w, t in [(w, _) 
-                                         for (w, _) in FreqDist([word.lower() for word in words]).most_common() 
-                                         if w not in ignores]}
+                             for w, t in [(w, _) 
+                                          for (w, _) in FreqDist([word.lower() for word in words]).most_common() 
+                                          if w not in ignores]}
         return learning_info_dict, testing_info_dict
 
 
@@ -88,9 +90,9 @@ class LDCharBigram(LanguageDeterminator):
     def generate_ds(self, words):
         learning_info_dict = {lang: {w: float(t) 
                               for w, t in self._language_model_cfd[lang].most_common()} 
-                       for lang in self._language_model_cfd.keys()}
+                              for lang in self._language_model_cfd.keys()}
         testing_info_dict = {w: float(t) 
-                            for w, t in FreqDist([tpl for word in words for tpl in bigrams(word)]).most_common()}
+                             for w, t in FreqDist([tpl for word in words for tpl in bigrams(word)]).most_common()}
         return learning_info_dict, testing_info_dict
 
     
@@ -102,9 +104,9 @@ class LDTokenBigram(LanguageDeterminator):
     def generate_ds(self, words):
         learning_info_dict = {lang: {w: float(t) 
                               for w, t in self._language_model_cfd[lang].most_common()} 
-                       for lang in self._language_model_cfd.keys()}
+                              for lang in self._language_model_cfd.keys()}
         testing_info_dict = {w: float(t) 
-                            for w, t in FreqDist(bigrams([w.lower() for w in words])).most_common()}
+                             for w, t in FreqDist(bigrams([w.lower() for w in words])).most_common()}
         return learning_info_dict, testing_info_dict
 
 class MainTest(unittest.TestCase):

@@ -12,5 +12,6 @@ for pair in testing_pair_list:
     second_sets = wn.synsets(pair[1])
     similarity = max([first.path_similarity(second) for first in first_sets for second in second_sets])
     pair[2] = similarity
+testing_pair_list = sorted(testing_pair_list, key=lambda i: i[2], reverse=True)
 for pair in testing_pair_list:
     print pair[0] + '-' + pair[1], pair[2]
