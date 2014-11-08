@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-rom nltk.corpus import udhr
+from nltk.corpus import udhr
 from nltk.probability import FreqDist, ConditionalFreqDist
 from nltk import word_tokenize
 import re
@@ -42,7 +42,6 @@ class LanguageDeterminator(object):
         test_words = word_tokenize(text)
         learning_info_dict, testing_info_dict = self.generate_ds(test_words)
         manhattan_distances_list = self._algo(learning_info_dict, testing_info_dict)
-        print manhattan_distances_list
         if len(manhattan_distances_list) == 0:
             raise Exception('Function evaluate must be implemented in sub class')
         return manhattan_distances_list[0][0]
@@ -117,8 +116,9 @@ class MainTest(unittest.TestCase):
         #self.text1 = "Peter had been to the office before they arrived."
         #self.text2 = "Si tu finis tes devoirs, je te donnerai des bonbons."
         #self.text3 = "Das ist ein schon recht langes deutsches Beispiel."
+        print ''
     
-    '''def test_based_char(self):
+    def test_based_char(self):
         print '---START: Testing: based on the frequency of characters---'
         ld = LDChar(languages)
         print 'guess for english text is', ld.guess_language(self.text1)
@@ -148,7 +148,7 @@ class MainTest(unittest.TestCase):
         print 'guess for english text is', ld.guess_language(self.text1)
         print 'guess for french text is', ld.guess_language(self.text2)
         print 'guess for german text is', ld.guess_language(self.text3)
-        print '---FINISH: Testing: based on the frequency of tokens bigrams---'''
+        print '---FINISH: Testing: based on the frequency of tokens bigrams---'
         
     def test_lang_similar(self):
         print 'lang_similar'
