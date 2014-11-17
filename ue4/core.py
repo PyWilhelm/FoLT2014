@@ -31,7 +31,6 @@ glass-magician
 rooster-voyage
 noon-string'''
 
-
 def ue4():
     lines = input_str.split('\n')
     testing_pair_list = []
